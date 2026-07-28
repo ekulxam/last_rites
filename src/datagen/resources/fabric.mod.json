@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "last_rites_datagen",
+	"version": "1",
+	"name": "Last Rites Datagen",
+    "environment": "*",
+    "entrypoints": {
+        "fabric-datagen": [
+          {
+            "adapter": "kotlin",
+            "value": "survivalblock.last_rites.LastRitesDataGenerator"
+          }
+        ]
+    },
+	"depends": {
+		"fabricloader": "*",
+		"minecraft": "*",
+		"java": ">=25",
+		"fabric-api": "*",
+        "last_rites": "*",
+        "fabric-language-kotlin": "*"
+	}
+}

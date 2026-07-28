@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "last_rites",
+	"version": "${version}",
+	"name": "Last Rites",
+	"description": "An alternative graves mod",
+	"authors": [
+		"Survivalblock",
+        "eyalego"
+	],
+	"contact": {
+		"homepage": "https://github.com/ekulxam/last_rites",
+		"sources": "https://github.com/ekulxam/last_rites",
+        "issues": "https://github.com/ekulxam/last_rites/issues"
+	},
+	"icon": "assets/last_rites/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"survivalblock.last_rites.LastRites"
+		]
+	},
+	"mixins": [
+		"last_rites.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
