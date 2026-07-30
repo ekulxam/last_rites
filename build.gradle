@@ -9,12 +9,8 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    // Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 }
 
 fabricApi {
@@ -32,7 +28,9 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    compileOnly(localRuntime("net.fabricmc:fabric-language-kotlin:1.13.13+kotlin.2.4.10"))
+    compileOnly(localRuntime("net.fabricmc:fabric-language-kotlin:${project.flk_version}"))
+
+    include(implementation("survivalblock.atmosphere:registrar:${project.registrar_version}"))
 }
 
 processResources {

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/snow_height6",
+    "textures": {
+        "particle": "last_rites:block/soul_ash",
+        "texture": "last_rites:block/soul_ash"
+    }
+}

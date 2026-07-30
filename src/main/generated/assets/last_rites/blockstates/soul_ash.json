@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "last_rites:block/soul_ash_height2"
+    },
+    "layers=2": {
+      "model": "last_rites:block/soul_ash_height4"
+    },
+    "layers=3": {
+      "model": "last_rites:block/soul_ash_height6"
+    },
+    "layers=4": {
+      "model": "last_rites:block/soul_ash_height8"
+    },
+    "layers=5": {
+      "model": "last_rites:block/soul_ash_height10"
+    },
+    "layers=6": {
+      "model": "last_rites:block/soul_ash_height12"
+    },
+    "layers=7": {
+      "model": "last_rites:block/soul_ash_height14"
+    },
+    "layers=8": {
+      "model": "last_rites:block/soul_ash"
+    }
+  }
+}

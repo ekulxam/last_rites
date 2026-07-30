@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "*": "minecraft:diamond",
+    "/": "minecraft:breeze_rod",
+    "O": "last_rites:soul_ash"
+  },
+  "pattern": [
+    " O*",
+    "O*O",
+    "/O "
+  ],
+  "result": {
+    "id": "last_rites:cinerary_blade"
+  }
+}

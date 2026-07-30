@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package survivalblock.last_rites
+package survivalblock.last_rites.common.block;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-class LastRitesDataGenerator : DataGeneratorEntrypoint {
-    override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
-        val pack = fabricDataGenerator.createPack()
+public class SoulAshLayerBlock extends SnowLayerBlock {
+    public SoulAshLayerBlock(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
     }
 }

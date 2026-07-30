@@ -12,6 +12,9 @@
           }
         ]
     },
+    "mixins": [
+      "last_rites_datagen.mixins.json"
+    ],
 	"depends": {
 		"fabricloader": "*",
 		"minecraft": "*",

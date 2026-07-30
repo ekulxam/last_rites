@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/amethyst_orb_1"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/amethyst_orb_2"
+        },
+        "threshold": 2
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/amethyst_orb_3"
+        },
+        "threshold": 3
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/amethyst_orb_4"
+        },
+        "threshold": 4
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "last_rites:item/amethyst_orb_0"
+    },
+    "property": "last_rites:dissonance",
+    "scale": 4.0
+  }
+}

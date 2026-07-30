@@ -17,8 +17,11 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"survivalblock.last_rites.LastRites"
-		]
+          "survivalblock.last_rites.common.LastRites"
+		],
+        "client": [
+          "survivalblock.last_rites.client.LastRitesClient"
+        ]
 	},
 	"mixins": [
 		"last_rites.mixins.json"

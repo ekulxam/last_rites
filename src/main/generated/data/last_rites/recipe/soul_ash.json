@@ -1,0 +1,8 @@
+{
+  "type": "last_rites:soul_immolation",
+  "chance": 0.11,
+  "ingredient": "#last_rites:soul_ash_ingredients",
+  "result": {
+    "id": "last_rites:soul_ash"
+  }
+}

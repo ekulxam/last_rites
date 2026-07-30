@@ -1,0 +1,17 @@
+{
+  "block.last_rites.soul_ash": "Soul Ash",
+  "commands.lastrites.dissonance.clear.success": "Removed all dissonance levels from %1$s",
+  "commands.lastrites.dissonance.fail.not_player": "Non-player %1$s does not have dissonance",
+  "commands.lastrites.dissonance.get.success": "%1$s has a dissonance level of %2$s",
+  "commands.lastrites.dissonance.set.success": "Set dissonance level of %1$s to %2$s",
+  "component.last_rites.cinerary_blade.charge": "Soul Ash Charges: %s",
+  "component.last_rites.cinerary_blade.hitsUntilDecrement": "Hits Until Charge Decrement: %s",
+  "component.last_rites.cinerary_blade.overcharged": "⚠ Overcharged ⚠",
+  "effect.last_rites.dissonance": "Dissonance",
+  "item.last_rites.amethyst_orb": "Amethyst Orb",
+  "item.last_rites.canopic_key": "Canopic Key",
+  "item.last_rites.cinerary_blade": "Cinerary Blade",
+  "last_rites.itemGroup.last_rites": "Last Rites",
+  "tag.block.last_rites.soul_immolators": "Soul Immolators",
+  "tag.item.last_rites.soul_ash_ingredients": "Soul Ash Ingredients"
+}

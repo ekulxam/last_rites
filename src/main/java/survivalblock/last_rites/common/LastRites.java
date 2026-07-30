@@ -13,28 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package survivalblock.last_rites;
+package survivalblock.last_rites.common;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.resources.Identifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import survivalblock.last_rites.common.init.*;
+import survivalblock.last_rites.common.networking.SoulCircleS2CPayload;
 
 public class LastRites implements ModInitializer {
 	public static final String MOD_ID = "last_rites";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final int MIN_DISSONANCE = 0;
+    public static final int MAX_DISSONANCE = 15 - 1;
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+        LastRitesAttachmentTypes.init();
+        LastRitesRecipes.init();
+        LastRitesBlocks.init();
+        LastRitesDataComponentTypes.init();
+        LastRitesItems.init();
+        LastRitesStatusEffects.init();
+        CommandRegistrationCallback.EVENT.register(LastRitesCommands.INSTANCE);
+
+        PayloadTypeRegistry.clientboundPlay().register(SoulCircleS2CPayload.ID, SoulCircleS2CPayload.PACKET_CODEC);
 	}
 
 	public static Identifier id(String path) {

@@ -1,0 +1,34 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/cinerary_blade_1"
+        },
+        "threshold": 1
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/cinerary_blade_2"
+        },
+        "threshold": 2
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "last_rites:item/cinerary_blade_3"
+        },
+        "threshold": 3
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "last_rites:item/cinerary_blade_0"
+    },
+    "property": "last_rites:cinerary_charge",
+    "scale": 3.0
+  }
+}

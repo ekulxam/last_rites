@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "last_rites:item/amethyst_orb_3"
+  }
+}
