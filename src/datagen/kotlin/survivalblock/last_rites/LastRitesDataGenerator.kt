@@ -29,6 +29,7 @@ import net.minecraft.data.recipes.RecipeProvider.getHasName
 import net.minecraft.references.BlockIds
 import net.minecraft.references.BlockItemIds
 import net.minecraft.references.ItemIds
+import net.minecraft.tags.BlockTags
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.Items
@@ -135,7 +136,6 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                     LootTable.lootTable()
                         .withPool(
                             LootPool.lootPool()
-                                .`when`(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
                                 .add(
                                     AlternativesEntry.alternatives(
                                         AlternativesEntry.alternatives(
@@ -155,31 +155,6 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                                                             layers.toFloat()
                                                         )
                                                     )
-                                                )
-                                        }
-                                            .`when`(this.doesNotHaveSilkTouch()),
-                                        AlternativesEntry.alternatives(
-                                            SnowLayerBlock.LAYERS.getPossibleValues()
-                                        ) { layers ->
-                                            LootItem.lootTableItem(LastRitesBlocks.SOUL_ASH)
-                                                .apply(
-                                                    SetItemCountFunction.setCount(
-                                                        ConstantValue.exactly(
-                                                            layers.toFloat()
-                                                        )
-                                                    )
-                                                )
-                                                .`when`(
-                                                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(
-                                                        block
-                                                    )
-                                                        .setProperties(
-                                                            StatePropertiesPredicate.Builder.properties()
-                                                                .hasProperty(
-                                                                    SnowLayerBlock.LAYERS,
-                                                                    layers
-                                                                )
-                                                        )
                                                 )
                                         }
                                     )
@@ -221,6 +196,12 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                     builder(LastRitesTags.SOUL_IMMOLATORS)
                         .add(BlockItemIds.SOUL_CAMPFIRE)
                         .add(BlockIds.SOUL_FIRE)
+                    builder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
+                        .add(LastRitesBlocks.Ids.SOUL_ASH)
+                    builder(BlockTags.MINEABLE_WITH_SHOVEL)
+                        .add(LastRitesBlocks.Ids.SOUL_ASH)
+                    builder(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH)
+                        .add(LastRitesBlocks.Ids.SOUL_ASH)
                 }
                 items {
                     builder(LastRitesTags.SOUL_ASH_INGREDIENTS)
