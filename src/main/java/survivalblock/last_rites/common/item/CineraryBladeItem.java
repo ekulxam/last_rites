@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import survivalblock.last_rites.common.component.item.CineraryBladeComponent;
 import survivalblock.last_rites.common.init.LastRitesBlocks;
 import survivalblock.last_rites.common.init.LastRitesDataComponentTypes;
@@ -60,7 +59,17 @@ public class CineraryBladeItem extends Item {
                 return InteractionResult.SUCCESS;
             }
 
-            set(stack, component.increment(consume));
+            component = component.increment(consume);
+            set(stack, component);
+
+            if (player != null) {
+                if (component.isOvercharged()) {
+                    player.getCooldowns().addCooldown(stack, 200);
+                } else {
+                    player.getCooldowns().addCooldown(stack, 20 * consume);
+                }
+            }
+
             layers -= consume;
             final int update = Block.UPDATE_ALL;
 
@@ -72,9 +81,8 @@ public class CineraryBladeItem extends Item {
 
             if (player instanceof ServerPlayer serverPlayer) {
                 final int particles = 5 * consume;
-                SoulCircleS2CPayload payload = new SoulCircleS2CPayload(particles, serverPlayer.getXRot(), serverPlayer.position());
-                PlayerLookup.tracking(serverPlayer).forEach(other -> ServerPlayNetworking.send(other, payload));
-                ServerPlayNetworking.send(serverPlayer, payload); // they don't track themselves
+                new SoulCircleS2CPayload(particles, serverPlayer.getXRot(), serverPlayer.position())
+                        .sendToAllIncludingSelf(serverPlayer);
             }
         }
 
@@ -87,6 +95,9 @@ public class CineraryBladeItem extends Item {
 
         if (stack.getOrDefault(LastRitesDataComponentTypes.CINERARY_BLADE, CineraryBladeComponent.DEFAULT).isOvercharged()) {
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 2));
+
+            new SoulCircleS2CPayload(20, attacker.getXRot(), target.position())
+                    .sendToAllIncludingSelf(target);
         }
     }
 
