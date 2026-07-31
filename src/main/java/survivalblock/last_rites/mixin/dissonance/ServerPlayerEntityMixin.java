@@ -26,8 +26,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import survivalblock.last_rites.common.init.LastRitesAttachmentTypes;
 import survivalblock.last_rites.common.init.LastRitesStatusEffects;
+import survivalblock.last_rites.common.saveddata.DissonanceTracker;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin extends Player {
@@ -41,7 +41,7 @@ public abstract class ServerPlayerEntityMixin extends Player {
     @Inject(method = "tick", at = @At("RETURN"))
     private void diss(CallbackInfo ci) {
         if (this.level().getGameTime() % 10 == 0) {
-            int dissonance = this.getAttachedOrCreate(LastRitesAttachmentTypes.DISSONANCE);
+            int dissonance = DissonanceTracker.get(this.level()).getDissonance(this.uuid);
             if (dissonance >= 5) {
                 this.addEffect(new MobEffectInstance(LastRitesStatusEffects.DISSONANCE, 80, dissonance - 5, true, true));
             }

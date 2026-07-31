@@ -30,6 +30,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.*;
 import survivalblock.last_rites.common.LastRites;
+import survivalblock.last_rites.common.saveddata.DissonanceTracker;
 
 public final class LastRitesCommands implements CommandRegistrationCallback {
     public static final LastRitesCommands INSTANCE = new LastRitesCommands();
@@ -95,7 +96,7 @@ public final class LastRitesCommands implements CommandRegistrationCallback {
     }
 
     public static int getDissonance(CommandContext<CommandSourceStack> context, ServerPlayer target) {
-        int value = target.getAttachedOrCreate(LastRitesAttachmentTypes.DISSONANCE);
+        int value = DissonanceTracker.getDissonance(target);
         context.getSource().sendSuccess(() -> Component.translatableEscape("commands.lastrites.dissonance.get.success", target.getName(), value), false);
         return 1;
     }
@@ -103,7 +104,7 @@ public final class LastRitesCommands implements CommandRegistrationCallback {
     public static int setDissonance(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer target = EntityArgument.getPlayer(context, "target");
         int value = IntegerArgumentType.getInteger(context, "value");
-        target.setAttached(LastRitesAttachmentTypes.DISSONANCE, value);
+        DissonanceTracker.get(target.level()).setDissonance(target.getUUID(), value);
         context.getSource().sendSuccess(() -> Component.translatableEscape("commands.lastrites.dissonance.set.success", target.getName(), value), true);
         return 1;
     }
@@ -113,7 +114,7 @@ public final class LastRitesCommands implements CommandRegistrationCallback {
     }
 
     public static int clearDissonance(CommandContext<CommandSourceStack> context, ServerPlayer target) {
-        target.setAttached(LastRitesAttachmentTypes.DISSONANCE, LastRites.MIN_DISSONANCE);
+        DissonanceTracker.get(target.level()).setDissonance(target.getUUID(), LastRites.MIN_DISSONANCE);
         context.getSource().sendSuccess(() -> Component.translatableEscape("commands.lastrites.dissonance.clear.success", target.getName()), true);
         return 1;
     }

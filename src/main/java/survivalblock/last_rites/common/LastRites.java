@@ -18,6 +18,8 @@ package survivalblock.last_rites.common;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.resources.Identifier;
 
@@ -27,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import survivalblock.last_rites.common.init.*;
 import survivalblock.last_rites.common.networking.SoulCircleS2CPayload;
+import survivalblock.last_rites.common.saveddata.DissonanceTracker;
 
 public class LastRites implements ModInitializer {
 	public static final String MOD_ID = "last_rites";
@@ -47,21 +50,13 @@ public class LastRites implements ModInitializer {
         LastRitesStatusEffects.init();
         CommandRegistrationCallback.EVENT.register(LastRitesCommands.INSTANCE);
 
+        ServerPlayerEvents.JOIN.register(serverPlayer -> DissonanceTracker.get(serverPlayer.level()).markDirty(serverPlayer));
+        ServerTickEvents.END_SERVER_TICK.register(server -> DissonanceTracker.get(server).serverTick(server));
+
         PayloadTypeRegistry.clientboundPlay().register(SoulCircleS2CPayload.ID, SoulCircleS2CPayload.PACKET_CODEC);
 	}
 
 	public static Identifier id(String path) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
-
-    public static void changeDissonance(ServerPlayer serverPlayer, int change) {
-        serverPlayer.setAttached(
-                LastRitesAttachmentTypes.DISSONANCE,
-                Mth.clamp(
-                        serverPlayer.getAttachedOrElse(LastRitesAttachmentTypes.DISSONANCE, MIN_DISSONANCE) + change,
-                        MIN_DISSONANCE,
-                        MAX_DISSONANCE
-                )
-        );
-    }
 }

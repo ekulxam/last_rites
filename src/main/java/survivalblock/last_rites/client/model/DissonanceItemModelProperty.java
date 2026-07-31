@@ -39,7 +39,7 @@ public final class DissonanceItemModelProperty implements RangeSelectItemModelPr
     @Override
     public float get(ItemStack stack, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed) {
         if (owner != null && owner.asLivingEntity() instanceof Player player) {
-            return player.getAttachedOrElse(LastRitesAttachmentTypes.DISSONANCE, 0) / 4F;
+            return player.getAttachedOrElse(LastRitesAttachmentTypes.SYNCED_DISSONANCE, 0) / 4F;
         }
         return 0;
     }

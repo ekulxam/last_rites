@@ -17,34 +17,24 @@ package survivalblock.last_rites.common.init;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.ItemStack;
 import survivalblock.last_rites.common.LastRites;
+import survivalblock.last_rites.common.saveddata.DissonanceTracker;
 
 import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class LastRitesAttachmentTypes {
-    public static final AttachmentType<Integer> DISSONANCE = AttachmentRegistry.<Integer>builder()
+    public static final AttachmentType<Integer> SYNCED_DISSONANCE = AttachmentRegistry.<Integer>builder()
             .initializer(() -> LastRites.MIN_DISSONANCE)
-            .persistent(
-                    Codec.INT.validate(integer -> {
-                        if (integer > LastRites.MAX_DISSONANCE) {
-                            return DataResult.error(() -> "Dissonance cannot be greater than " + LastRites.MAX_DISSONANCE + " (provided " + integer + ")!");
-                        }
-                        if (integer < LastRites.MIN_DISSONANCE) {
-                            return DataResult.error(() -> "Dissonance cannot be less than " + LastRites.MIN_DISSONANCE + " (provided " + integer + ")!");
-                        }
-                        return DataResult.success(integer);
-                    })
-            )
+            .persistent(DissonanceTracker.DISSONANCE_CODEC)
             .copyOnDeath()
             .syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all())
-            .buildAndRegister(LastRites.id("dissonance"));
+            .buildAndRegister(LastRites.id("synced_dissonance"));
 
     public static final AttachmentType<Boolean> PRODUCING_URN = AttachmentRegistry.<Boolean>builder()
             .initializer(() -> false)

@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import survivalblock.last_rites.common.LastRites;
 import survivalblock.last_rites.common.block.entity.CanopicUrnBlockEntity;
+import survivalblock.last_rites.common.saveddata.DissonanceTracker;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class BlockMixin {
         if (blockEntity instanceof CanopicUrnBlockEntity canopicUrnBlockEntity) {
             ExperienceOrb.award(level, Vec3.atCenterOf(pos), canopicUrnBlockEntity.getExperience());
             if (canopicUrnBlockEntity.getOwnerFromLevel(level) instanceof ServerPlayer player) {
-                LastRites.changeDissonance(player, -1);
+                DissonanceTracker.changeDissonance(player, -1);
             }
         }
     }
