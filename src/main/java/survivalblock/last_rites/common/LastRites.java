@@ -18,7 +18,6 @@ package survivalblock.last_rites.common;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.resources.Identifier;
 
@@ -38,7 +37,9 @@ public class LastRites implements ModInitializer {
 	public void onInitialize() {
         LastRitesAttachmentTypes.init();
         LastRitesRecipes.init();
+        LastRitesGameRules.init();
         LastRitesBlocks.init();
+        LastRitesBlockEntityTypes.init();
         LastRitesDataComponentTypes.init();
         LastRitesItems.init();
         LastRitesStatusEffects.init();

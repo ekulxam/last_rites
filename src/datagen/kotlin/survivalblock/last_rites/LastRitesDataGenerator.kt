@@ -34,26 +34,23 @@ import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.SnowLayerBlock
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
-import net.minecraft.world.level.storage.loot.LootContext
 import net.minecraft.world.level.storage.loot.LootPool
 import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry
 import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
 import survivalblock.last_rites.common.LastRites
+import survivalblock.last_rites.common.block.CanopicUrnBlock
 import survivalblock.last_rites.common.init.LastRitesBlocks
 import survivalblock.last_rites.common.init.LastRitesItems
 import survivalblock.last_rites.common.init.LastRitesStatusEffects
 import survivalblock.last_rites.common.init.LastRitesTags
 import survivalblock.last_rites.common.recipe.SoulImmolationRecipeBuilder
-import java.util.function.Function
 
 /**
  * Inspired by Glim's DataGenerationBuilder
@@ -87,6 +84,22 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                                         }
                                 )
                         )
+                    this.blockStateOutput
+                        .accept(
+                            MultiVariantGenerator.dispatch(LastRitesBlocks.CANOPIC_URN)
+                                .with(
+                                    PropertyDispatch.initial(CanopicUrnBlock.VARIANT)
+                                        .generate { variant ->
+                                            plainVariant(
+                                                ModelLocationUtils.getModelLocation(
+                                                    LastRitesBlocks.CANOPIC_URN,
+                                                    "_$variant"
+                                                )
+                                            )
+                                        }
+                                )
+
+                        )
                 },
                 items = {
                     for (i in 0..4) {
@@ -112,6 +125,8 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                 add("component.last_rites.cinerary_blade.overcharged", "⚠ Overcharged ⚠")
                 add("component.last_rites.cinerary_blade.charge", "Soul Ash Charges: %s")
                 add("component.last_rites.cinerary_blade.hitsUntilDecrement", "Hits Until Charge Decrement: %s")
+
+                add(LastRitesBlocks.CANOPIC_URN, "Cinerary Urn")
 
                 // commands
                 add(

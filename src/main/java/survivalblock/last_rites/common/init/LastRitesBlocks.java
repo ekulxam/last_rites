@@ -16,7 +16,6 @@
 package survivalblock.last_rites.common.init;
 
 import net.minecraft.references.BlockItemId;
-import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SnowLayerBlock;
@@ -26,6 +25,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import survivalblock.atmosphere.registrar.delayed.DelayedBlockRegistrant;
 import survivalblock.last_rites.common.LastRites;
+import survivalblock.last_rites.common.block.CanopicUrnBlock;
 import survivalblock.last_rites.common.block.SoulAshLayerBlock;
 
 public class LastRitesBlocks {
@@ -47,6 +47,18 @@ public class LastRitesBlocks {
                     .sound(SoundType.SOUL_SOIL)
                     .isViewBlocking((statex, _, _) -> statex.getValue(SnowLayerBlock.LAYERS) >= 8)
                     .pushReaction(PushReaction.DESTROY)
+    );
+
+    @SuppressWarnings("deprecation")
+    public static final Block CANOPIC_URN = REGISTRANT.register(
+            "cinerary_urn",
+            CanopicUrnBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BROWN)
+                    .forceSolidOff()
+                    .pushReaction(PushReaction.BLOCK)
+                    .sound(SoundType.DECORATED_POT)
+                    .strength(4F, 3600000.0F)
     );
 
     public static void init() {

@@ -18,10 +18,10 @@ public abstract class GuiGraphicsExtractorMixin {
     @Shadow
     public abstract void fill(RenderPipeline pipeline, int x0, int y0, int x1, int y1, int col);
 
-    @SuppressWarnings("NameDoesntMatchTargetClass")
-    @Inject(method = "itemBar", at = @At("HEAD"))
-    private void cineraryDoubleBar(ItemStack stack, int x, int y, CallbackInfo ci) {
-        CineraryBladeComponent component = stack.get(LastRitesDataComponentTypes.CINERARY_BLADE);
+    @SuppressWarnings("DiscouragedShift")
+    @Inject(method = "itemBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isBarVisible()Z", shift = At.Shift.BEFORE))
+    private void cineraryDoubleBar(ItemStack itemStack, int x, int y, CallbackInfo ci) {
+        CineraryBladeComponent component = itemStack.get(LastRitesDataComponentTypes.CINERARY_BLADE);
         if (component == null) {
             return;
         }

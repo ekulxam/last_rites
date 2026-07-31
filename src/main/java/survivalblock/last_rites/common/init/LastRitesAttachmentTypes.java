@@ -15,13 +15,17 @@
  */
 package survivalblock.last_rites.common.init;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.ItemStack;
 import survivalblock.last_rites.common.LastRites;
+
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class LastRitesAttachmentTypes {
@@ -41,6 +45,15 @@ public class LastRitesAttachmentTypes {
             .copyOnDeath()
             .syncWith(ByteBufCodecs.VAR_INT, AttachmentSyncPredicate.all())
             .buildAndRegister(LastRites.id("dissonance"));
+
+    public static final AttachmentType<Boolean> PRODUCING_URN = AttachmentRegistry.<Boolean>builder()
+            .initializer(() -> false)
+            .persistent(Codec.BOOL)
+            .buildAndRegister(LastRites.id("producing_urn"));
+    public static final AttachmentType<List<ItemStack>> CAPTURED_STACKS = AttachmentRegistry.<List<ItemStack>>builder()
+            .initializer(ImmutableList::of)
+            .persistent(ItemStack.CODEC.listOf())
+            .buildAndRegister(LastRites.id("captured_stacks"));
 
     public static void init() {
         // NO-OP

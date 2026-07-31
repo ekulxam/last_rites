@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "last_rites__variant=0": {
+      "model": "last_rites:block/cinerary_urn_0"
+    },
+    "last_rites__variant=1": {
+      "model": "last_rites:block/cinerary_urn_1"
+    }
+  }
+}
