@@ -17,7 +17,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.last_rites.common.block.CanopicUrnBlock;
 import survivalblock.last_rites.common.block.entity.CanopicUrnBlockEntity;
@@ -47,64 +49,11 @@ public abstract class LivingEntityMixin extends Entity {
             return;
         }
 
-        boolean failedPositionSearch = false;
-        BlockState state = level.getBlockState(pos);
-        if (state.isAir()) {
-            BlockPos below = pos.below();
-            int maxSearch = 1000;
-            while (true) {
-                maxSearch--;
-                if (maxSearch < 0) {
-                    failedPositionSearch = true;
-                    break;
-                }
+        pos = this.last_rites$getVerticalPositionForUrn(level, pos);
 
-                if (!level.isInValidBounds(below)) {
-                    failedPositionSearch = true;
-                    break;
-                }
-
-                if (!level.getBlockState(below).isAir()) {
-                    break;
-                }
-
-                pos = below;
-                below = below.below();
-            }
-        } else if (state.getFluidState().is(FluidTags.WATER)) {
-            BlockPos above = pos.above();
-            int maxSearch = 1000;
-            while (true) {
-                maxSearch--;
-                if (maxSearch < 0) {
-                    failedPositionSearch = true;
-                    break;
-                }
-
-                if (!level.isInValidBounds(above)) {
-                    failedPositionSearch = true;
-                    break;
-                }
-
-                pos = above;
-                above = above.above();
-
-                state = level.getBlockState(above);
-
-                if (state.isAir()) {
-                    pos = above;
-                    break;
-                }
-
-                if (!state.getFluidState().is(FluidTags.WATER)) {
-                    failedPositionSearch = true;
-                    break;
-                }
-            }
-        }
-
-        if (failedPositionSearch) {
+        if (pos == null) {
             pos = blockPosition;
+            boolean failedPositionSearch = true;
             for (BlockPos mutable : BlockPos.betweenClosed(pos.offset(-3, -3, -3), pos.offset(3, 3, 3))) {
                 if (!level.isInValidBounds(mutable)) {
                     continue;
@@ -121,6 +70,10 @@ public abstract class LivingEntityMixin extends Entity {
                 // failed again somehow lol
                 original.call(level, source);
                 return;
+            }
+            BlockPos tryDown = this.last_rites$getVerticalPositionForUrn(level, pos);
+            if (tryDown != null) {
+                pos = tryDown;
             }
         }
 
@@ -153,6 +106,60 @@ public abstract class LivingEntityMixin extends Entity {
             level.setAttached(LastRitesAttachmentTypes.PRODUCING_URN, false);
             level.removeAttached(LastRitesAttachmentTypes.CAPTURED_STACKS);
         }
+    }
+
+    @Unique
+    @Nullable
+    private BlockPos last_rites$getVerticalPositionForUrn(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.isAir()) {
+            BlockPos below = pos.below();
+            int maxSearch = 1000;
+            while (true) {
+                maxSearch--;
+                if (maxSearch < 0) {
+                    return null;
+                }
+
+                if (!level.isInValidBounds(below)) {
+                    return null;
+                }
+
+                if (!level.getBlockState(below).isAir()) {
+                    break;
+                }
+
+                pos = below;
+                below = below.below();
+            }
+        } else if (state.getFluidState().is(FluidTags.WATER)) {
+            BlockPos above = pos.above();
+            int maxSearch = 1000;
+            while (true) {
+                maxSearch--;
+                if (maxSearch < 0) {
+                    return null;
+                }
+
+                if (!level.isInValidBounds(above)) {
+                    return null;
+                }
+
+                above = above.above();
+
+                state = level.getBlockState(above);
+
+                if (state.isAir()) {
+                    pos = above;
+                    break;
+                }
+
+                if (!state.getFluidState().is(FluidTags.WATER)) {
+                    return null;
+                }
+            }
+        }
+        return pos;
     }
 
     @WrapWithCondition(method = "dropAllDeathLoot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V"))

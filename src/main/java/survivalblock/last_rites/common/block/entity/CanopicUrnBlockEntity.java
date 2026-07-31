@@ -143,4 +143,8 @@ public class CanopicUrnBlockEntity extends BlockEntity {
         this.experience = input.getIntOr("experience", 0);
         this.unlocked = input.getBooleanOr("unlocked", false);
     }
+
+    public int getExperience() {
+        return this.experience;
+    }
 }

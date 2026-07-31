@@ -51,14 +51,14 @@ public class LastRitesBlocks {
 
     @SuppressWarnings("deprecation")
     public static final Block CANOPIC_URN = REGISTRANT.register(
-            "cinerary_urn",
+            "canopic_urn",
             CanopicUrnBlock::new,
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BROWN)
                     .forceSolidOff()
                     .pushReaction(PushReaction.BLOCK)
                     .sound(SoundType.DECORATED_POT)
-                    .strength(4F, 3600000.0F)
+                    .strength(1F, 3600000.0F)
     );
 
     public static void init() {

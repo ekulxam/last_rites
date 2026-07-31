@@ -27,6 +27,7 @@ import survivalblock.last_rites.common.LastRites;
 import survivalblock.last_rites.common.block.entity.CanopicUrnBlockEntity;
 import survivalblock.last_rites.common.init.LastRitesItems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CanopicUrnBlock extends BaseEntityBlock {
@@ -88,15 +89,15 @@ public class CanopicUrnBlock extends BaseEntityBlock {
 
     @Override
     protected List<ItemStack> getDrops(final BlockState state, LootParams.Builder params) {
+        List<ItemStack> contents = new ArrayList<>(super.getDrops(state, params));
+
         if (params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof CanopicUrnBlockEntity blockEntity) {
-            params = params.withDynamicDrop(ShulkerBoxBlock.CONTENTS, output -> {
-                for (int i = 0; i < blockEntity.getContainerSize(); i++) {
-                    output.accept(blockEntity.getItem(i));
-                }
-            });
+            for (int i = 0; i < blockEntity.getContainerSize(); i++) {
+                contents.add(blockEntity.getItem(i));
+            }
         }
 
-        return super.getDrops(state, params);
+        return contents;
     }
 
     @Override

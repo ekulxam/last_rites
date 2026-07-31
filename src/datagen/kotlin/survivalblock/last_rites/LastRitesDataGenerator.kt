@@ -126,7 +126,7 @@ class LastRitesDataGenerator : DataGeneratorEntrypoint {
                 add("component.last_rites.cinerary_blade.charge", "Soul Ash Charges: %s")
                 add("component.last_rites.cinerary_blade.hitsUntilDecrement", "Hits Until Charge Decrement: %s")
 
-                add(LastRitesBlocks.CANOPIC_URN, "Cinerary Urn")
+                add(LastRitesBlocks.CANOPIC_URN, "Canopic Urn")
 
                 // commands
                 add(

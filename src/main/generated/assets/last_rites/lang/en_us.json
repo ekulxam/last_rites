@@ -1,5 +1,5 @@
 {
-  "block.last_rites.cinerary_urn": "Cinerary Urn",
+  "block.last_rites.canopic_urn": "Canopic Urn",
   "block.last_rites.soul_ash": "Soul Ash",
   "commands.lastrites.dissonance.clear.success": "Removed all dissonance levels from %1$s",
   "commands.lastrites.dissonance.fail.not_player": "Non-player %1$s does not have dissonance",

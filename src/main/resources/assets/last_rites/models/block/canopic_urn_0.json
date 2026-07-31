@@ -4,8 +4,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "canopic_urn_0",
-		"particle": "canopic_urn_0"
+		"0": "last_rites:block/canopic_urn_0",
+		"particle": "last_rites:block/canopic_urn_0"
 	},
 	"elements": [
 		{

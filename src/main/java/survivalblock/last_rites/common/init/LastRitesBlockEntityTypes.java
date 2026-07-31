@@ -13,7 +13,7 @@ public final class LastRitesBlockEntityTypes {
     private static final DelayedBlockEntityTypeRegistrant REGISTRANT = new DelayedBlockEntityTypeRegistrant(LastRites.MOD_ID);
     public static final BlockEntityType<CanopicUrnBlockEntity> CINERARY_URN =
             REGISTRANT.register(
-                    "cinerary_urn",
+                    "canopic_urn",
                     FabricBlockEntityTypeBuilder.create(
                             CanopicUrnBlockEntity::new,
                             LastRitesBlocks.CANOPIC_URN

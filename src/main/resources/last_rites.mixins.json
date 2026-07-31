@@ -3,6 +3,7 @@
   "package": "survivalblock.last_rites.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "BlockMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
     "NonNullListAccessor",
