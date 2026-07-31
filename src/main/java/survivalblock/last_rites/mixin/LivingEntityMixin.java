@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import survivalblock.last_rites.common.LastRites;
 import survivalblock.last_rites.common.block.CanopicUrnBlock;
 import survivalblock.last_rites.common.block.entity.CanopicUrnBlockEntity;
 import survivalblock.last_rites.common.init.LastRitesAttachmentTypes;
@@ -97,6 +98,7 @@ public abstract class LivingEntityMixin extends Entity {
                         level.getGameRules().get(LastRitesGameRules.URNS_STORE_EXPERIENCE) ? serverPlayer.totalExperience : 0,
                         stacks
                 );
+                LastRites.changeDissonance(serverPlayer, 1);
             } else {
                 for (ItemStack stack : stacks) {
                     this.spawnAtLocation(level, stack);

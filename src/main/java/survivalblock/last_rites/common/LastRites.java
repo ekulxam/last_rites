@@ -21,6 +21,8 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.resources.Identifier;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import survivalblock.last_rites.common.init.*;
@@ -51,4 +53,15 @@ public class LastRites implements ModInitializer {
 	public static Identifier id(String path) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
+
+    public static void changeDissonance(ServerPlayer serverPlayer, int change) {
+        serverPlayer.setAttached(
+                LastRitesAttachmentTypes.DISSONANCE,
+                Mth.clamp(
+                        serverPlayer.getAttachedOrElse(LastRitesAttachmentTypes.DISSONANCE, MIN_DISSONANCE) + change,
+                        MIN_DISSONANCE,
+                        MAX_DISSONANCE
+                )
+        );
+    }
 }

@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import survivalblock.last_rites.common.LastRites;
 import survivalblock.last_rites.common.block.entity.CanopicUrnBlockEntity;
 import survivalblock.last_rites.common.init.LastRitesAttachmentTypes;
 
@@ -31,10 +32,7 @@ public class BlockMixin {
         if (blockEntity instanceof CanopicUrnBlockEntity canopicUrnBlockEntity) {
             ExperienceOrb.award(level, Vec3.atCenterOf(pos), canopicUrnBlockEntity.getExperience());
             if (canopicUrnBlockEntity.getOwnerFromLevel(level) instanceof ServerPlayer player) {
-                player.setAttached(
-                        LastRitesAttachmentTypes.DISSONANCE,
-                        Math.max(0, player.getAttachedOrCreate(LastRitesAttachmentTypes.DISSONANCE) - 1)
-                );
+                LastRites.changeDissonance(player, -1);
             }
         }
     }
