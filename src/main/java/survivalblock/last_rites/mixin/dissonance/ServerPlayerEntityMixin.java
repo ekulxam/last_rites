@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package survivalblock.last_rites.mixin;
+package survivalblock.last_rites.mixin.dissonance;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.level.ServerLevel;

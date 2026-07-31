@@ -23,7 +23,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 import survivalblock.last_rites.common.LastRites;
 import survivalblock.last_rites.common.init.LastRitesBlockEntityTypes;
-import survivalblock.last_rites.mixin.NonNullListAccessor;
+import survivalblock.last_rites.mixin.canopic_urn.NonNullListAccessor;
 
 import java.util.ArrayList;
 import java.util.List;

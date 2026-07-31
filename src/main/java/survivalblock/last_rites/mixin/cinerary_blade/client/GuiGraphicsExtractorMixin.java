@@ -1,4 +1,4 @@
-package survivalblock.last_rites.mixin.client;
+package survivalblock.last_rites.mixin.cinerary_blade.client;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

@@ -1,4 +1,4 @@
-package survivalblock.last_rites.mixin;
+package survivalblock.last_rites.mixin.canopic_urn;
 
 import net.minecraft.core.NonNullList;
 import org.jspecify.annotations.Nullable;

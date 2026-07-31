@@ -1,4 +1,4 @@
-package survivalblock.last_rites.mixin;
+package survivalblock.last_rites.mixin.canopic_urn;
 
 import com.google.common.collect.ImmutableList;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -68,10 +68,10 @@ public abstract class LivingEntityMixin extends Entity {
             }
 
             if (failedPositionSearch) {
-                // failed again somehow lol
                 original.call(level, source);
                 return;
             }
+
             BlockPos tryDown = this.last_rites$getVerticalPositionForUrn(level, pos);
             if (tryDown != null) {
                 pos = tryDown;
@@ -134,6 +134,7 @@ public abstract class LivingEntityMixin extends Entity {
                 pos = below;
                 below = below.below();
             }
+            return pos;
         } else if (state.getFluidState().is(FluidTags.WATER)) {
             BlockPos above = pos.above();
             int maxSearch = 1000;
@@ -160,8 +161,9 @@ public abstract class LivingEntityMixin extends Entity {
                     return null;
                 }
             }
+            return pos;
         }
-        return pos;
+        return null;
     }
 
     @WrapWithCondition(method = "dropAllDeathLoot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;dropExperience(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V"))

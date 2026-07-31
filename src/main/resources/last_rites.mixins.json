@@ -3,15 +3,15 @@
   "package": "survivalblock.last_rites.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "BlockMixin",
-    "ItemEntityMixin",
-    "LivingEntityMixin",
-    "NonNullListAccessor",
-    "ServerPlayerEntityMixin",
-    "ServerWorldMixin"
+    "canopic_urn.BlockMixin",
+    "canopic_urn.ItemEntityMixin",
+    "canopic_urn.LivingEntityMixin",
+    "canopic_urn.NonNullListAccessor",
+    "dissonance.ServerPlayerEntityMixin",
+    "canopic_urn.ServerWorldMixin"
   ],
   "client": [
-    "client.GuiGraphicsExtractorMixin"
+    "cinerary_blade.client.GuiGraphicsExtractorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

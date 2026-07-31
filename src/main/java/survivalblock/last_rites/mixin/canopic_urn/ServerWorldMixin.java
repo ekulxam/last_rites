@@ -1,4 +1,4 @@
-package survivalblock.last_rites.mixin;
+package survivalblock.last_rites.mixin.canopic_urn;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Holder;
