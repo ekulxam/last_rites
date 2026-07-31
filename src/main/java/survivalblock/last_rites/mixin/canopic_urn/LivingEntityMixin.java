@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
@@ -36,6 +37,9 @@ public abstract class LivingEntityMixin extends Entity {
         super(type, level);
     }
 
+    @Unique
+    private static final int[] last_rites$Y_LEVELS = new int[]{0, -1, -2, -3, 1, 2, 3}; // this is a good idea trust me
+
     @WrapMethod(method = "dropAllDeathLoot")
     private void wrapAndProduceUrn(ServerLevel level, DamageSource source, Operation<Void> original) {
         if (!((LivingEntity) (Object) this instanceof ServerPlayer serverPlayer)) {
@@ -53,21 +57,24 @@ public abstract class LivingEntityMixin extends Entity {
         pos = this.last_rites$getVerticalPositionForUrn(level, pos);
 
         if (pos == null) {
-            pos = blockPosition;
-            boolean failedPositionSearch = true;
-            for (BlockPos mutable : BlockPos.betweenClosed(pos.offset(-3, -3, -3), pos.offset(3, 3, 3))) {
-                if (!level.isInValidBounds(mutable)) {
-                    continue;
+            for (int tryY : last_rites$Y_LEVELS) {
+                for (BlockPos mutable : BlockPos.spiralAround(blockPosition.offset(0, tryY, 0), 3, Direction.NORTH, Direction.EAST)) {
+                    if (!level.isInValidBounds(mutable)) {
+                        continue;
+                    }
+
+                    if (level.getBlockState(mutable).isAir()) {
+                        pos = mutable.immutable();
+                        break;
+                    }
                 }
 
-                if (level.getBlockState(mutable).isAir()) {
-                    pos = mutable.immutable();
-                    failedPositionSearch = false;
+                if (pos != null) {
                     break;
                 }
             }
 
-            if (failedPositionSearch) {
+            if (pos == null) {
                 original.call(level, source);
                 return;
             }
